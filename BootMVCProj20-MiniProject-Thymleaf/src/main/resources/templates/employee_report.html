@@ -1,0 +1,56 @@
+<html xmlns:th="https://www.thymeleaf.org">
+
+    <h1 style="color:red; text-align:center;">Employee Report</h1>
+
+    <div th:if="${empsData != null}">
+        <table border="1" bgcolor="cyan" align="center">
+                <tr bgcolor="pink">
+                    <th>Empno</th>
+                    <th>EmpName</th>
+                    <th>Job</th>
+                    <th>Salary</th>
+                    <th>Operation</th>
+                </tr>
+                <tr th:each="emp : ${empsData}">
+                    <td><span th:text="${emp.empno}"></span></td>
+                    <td><span th:text="${emp.ename}"></span></td>
+                    <td><span th:text="${emp.job}"></span></td>
+                    <td><span th:text="${emp.sal}"></span></td>
+                    <td>
+                        <a th:href="@{/employee/edit(no=${emp.empno})}">
+                            <img th:src="@{/images/edit.jpg}" width="50" height="50" alt="Edit"/>
+                        </a>
+                        &nbsp;&nbsp;&nbsp;
+                        <a onclick="return confirm('Do you want to delete?')" th:href="@{/employee/delete(no=${emp.empno})}">
+                            <img th:src="@{/images/delete.jpg}" width="50" height="50" alt="Delete"/>
+                        </a>
+                    </td>
+                </tr>
+                </table>
+    </div>
+    <div th:if="${empsData == null || empsData.isEmpty()}">
+        <h1 style="text-align:center;">Record not Found</h1>
+    </div>
+
+    <div th:if="${!resultMsg.empty}">
+        <h1 style="color:green; text-align:center;"><span th:text="${resultMsg}"></h1>
+    </div>
+
+    <br><br>
+    <hr>
+
+    <h1 style="text-align:center;">
+        <a th:href="@{/employee/}">
+            <img th:src="@{/images/home.jpg}" width="50" height="50" alt="Home"/> Go to home page
+        </a>
+    </h1>
+
+    <hr>
+
+    <h1 style="text-align:center;">
+        <a th:href="@{/employee/add}">
+            <img th:src="@{/images/add.jpg}" width="50" height="50" alt="Add"/> Add Employee
+        </a>
+    </h1>
+</body>
+</html>

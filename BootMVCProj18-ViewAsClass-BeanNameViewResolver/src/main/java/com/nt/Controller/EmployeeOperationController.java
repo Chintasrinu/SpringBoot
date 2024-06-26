@@ -1,0 +1,35 @@
+package com.nt.Controller;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.nt.Service.IEmployeeMgmtService;
+import com.nt.model.Employee;
+@Controller
+public class EmployeeOperationController {
+	@Autowired
+	private IEmployeeMgmtService service;
+	
+	@GetMapping("/")
+	public String showHomePage() {
+		// return LVN
+		return "welcome";
+	}
+	
+	@GetMapping("/report")
+	public String showReport(Map<String, Object> map, @RequestParam("type") String type) {
+		// use service
+		List<Employee> emplist = service.getAllEmployee();
+		// add result to model attribute
+		map.put("empsList",emplist);
+		// return Lvn based on the hyperLink that is clicked
+		if(type.equalsIgnoreCase("excel")) 
+			return "excel_report";
+			else
+				return "pdf_report";
+		}
+}
