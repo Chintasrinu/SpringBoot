@@ -1,0 +1,4 @@
+# To specify active profile
+ spring: 
+   profiles: 
+      active: uat
